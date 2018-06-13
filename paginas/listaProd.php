@@ -9,7 +9,7 @@ if (!empty($_SESSION['id'])) {
     header("Location: ../paginas/login.php");
 }
 ?>
-<html lang="en">
+<html>
     <head>
         <title>Bootstrap Example</title>
         <meta charset="utf-8">
@@ -25,17 +25,11 @@ if (!empty($_SESSION['id'])) {
         <nav class="navbar navbar-light " style="background-color:#F7F7F7">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>                        
-                    </button>
-                     <a class="navbar-brand" href=""><i class="fa fa-cube" aria-hidden="true"></i> Ramos</a>
+                    <a class="navbar-brand" href=""><i class="fa fa-cube" aria-hidden="true"></i> Ramos</a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
-                      <ul class="nav navbar-nav" >
+                    <ul class="nav navbar-nav" >
                         <li class="active"><a href="principal.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-                        <li><a href="cadProdutos.php"><i class="fa fa-address-book" aria-hidden="true"></i> Cadastrar Produtos</a></li>
                         <li><a href="listaProd.php"><i class="fa fa-list" aria-hidden="true"></i> Lista de Produtos</a></li>
                         <li><a href="listaUsers.php"><i class="fa fa-users" aria-hidden="true"></i> Lista de Usuarios</a></li>
                     </ul>
@@ -49,9 +43,7 @@ if (!empty($_SESSION['id'])) {
         <div class="container-fluid text-center">    
             <div class="row content" >
                 <div class="col-sm-2 sidenav"  style="background-color: white">
-                    <p><a href="#"></a></p>
-                    <p><a href="#"></a></p>
-                    <p><a href="#"></a></p>
+                    <!--PRIMEIRA COLUNA-->
                 </div>
                 <div class="col-sm-8 text-left"> 
                     <div class="col-md-12">
@@ -65,34 +57,93 @@ if (!empty($_SESSION['id'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row_listProd = mysqli_fetch_assoc($resultado_prod)) {?>
-                                    
+                                <?php while ($row_listProd = mysqli_fetch_assoc($resultado_prod)) { ?>
+
                                     <tr>
-                                        <td><?php echo $row_listProd['idprod'];?></td>
-                                        <td><?php echo $row_listProd['nome'];?></td>
-                                        <td><?php echo $row_listProd['qtde_estoque'];?></td>
-                                        <td><?php echo 'R$ '.$row_listProd['preco'];?></td>
-                                        <td>
-                                            <button type="button" class="btn btn-primary">Editar</button>
-                                            <button type="button" class="btn btn-danger">Excluir</button>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
+                                        <td><?php echo $row_listProd['idprod']; ?></td>
+                                        <td><?php echo $row_listProd['nome']; ?></td>
+                                        <td><?php echo $row_listProd['qtde_estoque']; ?></td>
+                                        <td><?php echo 'R$ ' . $row_listProd['preco']; ?></td>
+                                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Excluir</button></td>
+
+                                        <!--MODAL EXCLUIR-->
+                                <div class="modal" id="myModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Tem certeza que deseja excluir?</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <?php echo "<a class='btn btn-danger' role='button' href='../util/process_apaga_prod.php?id=" . $row_listProd['idprod'] . "'>SIM</a>"; ?>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                </tr>
+                            <?php } ?>
                             </tbody>
                         </table>
-
                     </div>
+
+                    <button style="margin-left: 42%" type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNewProd">Cadastrar produto</button>
+                    <?php
+                    if (isset($_SESSION['msg'])) {
+                        echo ($_SESSION['msg']);
+                        unset($_SESSION['msg']);
+                    }
+                    ?><br>
+
                 </div>
                 <div class="col-sm-2 sidenav"  style="background-color: white">
-                    <p><a href="#"></a></p>
-                    <p><a href="#"></a></p>
-                    <p><a href="#"> </a></p>
+                  <!--TERCEIRA COLUNA-->
                 </div>
             </div>
         </div>
 
-        <footer class="container-fluid text-center">
-            <p>Footer Text</p>
-        </footer>
+        <!--MODAL CADASTRAR PRODUTO-->
+
+        <!-- The Modal -->
+        <div class="modal fade" id="modalNewProd">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cadastrar Produto</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="text-left"> 
+                            <form action="../util/processa_prod.php" method="POST">
+                                <div>
+                                    <br/>
+                                    <label>Nome do produto</label>
+                                    <input class="form-control"  required="required" type="text" name="nome" placeholder="Digite o nome do produto">
+                                    <label>Quantidade em estoque</label>
+                                    <input class="form-control"  required="required" type="text" name="qtde_estoque" placeholder="Digite a quantidade em estoque">
+                                    <label>Preço</label>
+                                    <input class="form-control"  required="required" type="text" name="preco" placeholder="Digite o preço do produto">
+                                    <br>
+                                    <button type="submit" class="btn btn-success">Cadastrar</button>
+
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
     </body>
 </html>

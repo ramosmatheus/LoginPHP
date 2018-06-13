@@ -35,7 +35,6 @@ if (!empty($_SESSION['id'])) {
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav" >
                         <li class="active"><a href="principal.php"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
-                        <li><a href="cadProdutos.php"><i class="fa fa-address-book" aria-hidden="true"></i> Cadastrar Produtos</a></li>
                         <li><a href="listaProd.php"><i class="fa fa-list" aria-hidden="true"></i> Lista de Produtos</a></li>
                         <li><a href="listaUsers.php"><i class="fa fa-users" aria-hidden="true"></i> Lista de Usuarios</a></li>
                     </ul>
@@ -94,9 +93,5 @@ if (!empty($_SESSION['id'])) {
 
             </div>
         </div>
-
-        <footer class="container-fluid text-center">
-            <p>Footer Text</p>
-        </footer>
     </body>
 </html>
