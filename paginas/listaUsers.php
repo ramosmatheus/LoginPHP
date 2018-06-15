@@ -64,7 +64,7 @@ if (!empty($_SESSION['id'])) {
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php while ($row_listUsers = mysqli_fetch_assoc($resultado_users)){ ?>
+                                <?php while ($row_listUsers = mysqli_fetch_assoc($resultado_users)) { ?>
 
                                     <tr>
                                         <td><?php echo $row_listUsers['id']; ?></td>
@@ -72,26 +72,49 @@ if (!empty($_SESSION['id'])) {
                                         <td><?php echo $row_listUsers['email']; ?></td>
                                         <td><?php echo $row_listUsers['usuario']; ?></td>
                                         <td>
-                                            <button type="button" class="btn btn-primary">Editar</button>
-                                            <button type="button" class="btn btn-danger">Excluir</button>
-                                        </td>
-                                    </tr>
-                                <?php } ?>
+                                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Excluir</button></td>
 
+                                        <!--MODAL EXCLUIR-->
+                                <div class="modal" id="myModal">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+
+                                            <!-- Modal Header -->
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Tem certeza que deseja excluir?</h4>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            </div>
+
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <?php echo "<a class='btn btn-danger' role='button' href='../util/process_apaga_usuarios.php?id=" . $row_listUsers['id'] . "'>SIM</a>"; ?>
+                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                </tr>
+                            <?php } ?>
                             </tbody>
-
                         </table>
-
                     </div>
-                </div>
-                <div class="col-sm-2 sidenav"  style="background-color: white">
-                    <p><a href="#"></a></p>
-                    <p><a href="#"></a></p>
-                    <p><a href="#"> </a></p>
+
+
+                    </tbody>
+
+                    </table>
 
                 </div>
+            </div>
+            <div class="col-sm-2 sidenav"  style="background-color: white">
+                <p><a href="#"></a></p>
+                <p><a href="#"></a></p>
+                <p><a href="#"> </a></p>
 
             </div>
+
         </div>
-    </body>
+    </div>
+</body>
 </html>
