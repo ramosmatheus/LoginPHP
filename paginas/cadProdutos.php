@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!empty($_SESSION['id'])) {
+//if (!empty($_SESSION['id'])) {
     
-} else {
+/*} else {
     $_SESSION['msg'] = "Área restrita";
     header("Location: ../paginas/login.php");
-}
+}*/
 ?>
 <html lang="en">
     <head>

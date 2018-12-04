@@ -2,12 +2,12 @@
 include_once ("../banco/conexao.php");
 include_once ("../util/processa_listUsers.php");
 session_start();
-if (!empty($_SESSION['id'])) {
+//if (!empty($_SESSION['id'])) {
     
-} else {
+/*} else {
     $_SESSION['msg'] = "Área restrita";
     header("Location: ../paginas/login.php");
-}
+}*/
 ?>
 <html lang="en">
     <head>
@@ -72,40 +72,31 @@ if (!empty($_SESSION['id'])) {
                                         <td><?php echo $row_listUsers['email']; ?></td>
                                         <td><?php echo $row_listUsers['usuario']; ?></td>
                                         <td>
-                                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Excluir</button></td>
+                                        <td>
+                                        <?php echo "<a class='btn btn-danger' role='button' href='../util/process_apaga_usuarios.php?id=" . $row_listUsers['id'] .  "'>Excluir</a>"; ?>                                      
+                                        <a class="btn btn-primary" href="<?php echo "cadastro.php?id=".$row_listUsers['id'] . "&nome=" . $row_listUsers['nome'] . "&email=" . $row_listUsers['email'] . "&usuario=" . $row_listUsers['usuario']. "&senha=" . $row_listUsers['senha'] ?>">Alterar</a>
+                                        </td>
 
-                                        <!--MODAL EXCLUIR-->
-                                <div class="modal" id="myModal">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Tem certeza que deseja excluir?</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <?php echo "<a class='btn btn-danger' role='button' href='../util/process_apaga_usuarios.php?id=" . $row_listUsers['id'] . "'>SIM</a>"; ?>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                 
                                 </tr>
                             <?php } ?>
                             </tbody>
                         </table>
                     </div>
+                    <button style="margin-left: 42%; " type="button" class="btn btn-success" data-toggle="modal" data-target="#modalNewProd">Cadastrar Usuário</button>
+                    <?php
+                    if (isset($_SESSION['msg'])) {
+                        echo ($_SESSION['msg']);
+                        unset($_SESSION['msg']);
+                    }
+                    ?><br>
 
-
-                    </tbody>
+                    
 
                     </table>
 
                 </div>
+                
             </div>
             <div class="col-sm-2 sidenav"  style="background-color: white">
                 <p><a href="#"></a></p>
@@ -116,5 +107,45 @@ if (!empty($_SESSION['id'])) {
 
         </div>
     </div>
+
+ <!--MODAL CADASTRAR USUARIO-->
+
+        <!-- The Modal -->
+        <div class="modal fade" id="modalNewProd">
+            <div class="modal-dialog">
+                <div class="modal-content">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Cadastrar Usuario</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <div class="text-left"> 
+                            <form action="../util/processa_cad.php" method="POST">
+                                <div>
+                                    <br/>
+                                    <label>Nome do usuário</label>
+                                    <input class="form-control"  required="required" type="text" name="nome" placeholder="Digite o nome do usuário">
+                                    <label>Email</label>
+                                    <input class="form-control"  required="required" type="email" name="email" placeholder="Digite o email">
+                                    <label>Nome de usuário</label>
+                                    <input class="form-control"  required="required" type="text" name="usuario" placeholder="Digite nome de usuário">
+                                    <label>Senha</label>
+                                    <input class="form-control" required="required" type="password" name="senha" placeholder="Digite a senha">
+                                    <br>
+                                    <button type="submit" class="btn btn-success">Cadastrar</button>
+
+
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
 </body>
 </html>

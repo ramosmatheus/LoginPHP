@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (!empty($_SESSION['id'])) {
+//if (!empty($_SESSION['id'])) {
     
-} else {
+/*} else {
     $_SESSION['msg'] = "Área restrita";
     header("Location: ../paginas/login.php");
-}
+}*/
 ?>
 <html lang="en">
     <head>
@@ -50,9 +50,7 @@ if (!empty($_SESSION['id'])) {
                 </div>
                 <div class="col-sm-8 text-left"> 
                     <h1>Bem-Vindo</h1>
-                    <?php
-                    echo $_SESSION['nome'];
-                    ?>
+                    
                 </div>
                 <div class="col-sm-2 sidenav"  style="background-color: white">
                     <p><a href="#"></a></p>

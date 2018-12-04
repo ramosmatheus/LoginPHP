@@ -13,7 +13,7 @@ $senha = $_POST['senha'];
 $senhaCrip = password_hash($senha, PASSWORD_DEFAULT);
 $sql = "insert into usuarios(nome, email, usuario, senha) values ( '$nome', '$email', '$usuario' , '$senhaCrip')";
 $salvar = mysqli_query($conn, $sql);
-$_SESSION['msg'] = "Cadastro realizado com sucesso";
-header("Location: ../paginas/login.php");
+$_SESSION['msg'] = "<br><p style='color:#5caedc; text-align: center'>Usuário cadastrado com sucesso";
+header("Location: ../paginas/listaUsers.php");
 
 

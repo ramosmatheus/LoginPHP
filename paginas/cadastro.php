@@ -12,34 +12,37 @@
     </head>
     <body>
         <div class="login-form">
-            <form action="../util/processa_cad.php" method="POST">
-                <h2 class="text-center">Cadastre-se</h2>  
+        <?php
+                        $id = filter_input(INPUT_GET, "id");
+                        $nome = filter_input(INPUT_GET, "nome");
+                        $email = filter_input(INPUT_GET, "email");
+                        $usuario = filter_input(INPUT_GET, "usuario");
+                        $senha = filter_input(INPUT_GET, "senha");
+        ?>
+
+        
+            <form action="../util/alterarUsuario.php" method="GET">
+                <h2 class="text-center">Alterar Cadastro</h2>
+                <input type="hidden" class="form-control" placeholder="Nome" required="required" name="id" value="<?php echo $id ?>">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Nome" required="required" name="nome">
+                <label>Nome do usuário:</label>
+                    <input type="text" class="form-control" placeholder="Nome" required="required" name="nome" value="<?php echo $nome ?>">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Email" required="required" name="email">
+                <label>Email:</label>
+                    <input type="text" class="form-control" placeholder="Email" required="required" name="email"  value="<?php echo $email ?>">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Nome de usuario" required="required" name="usuario">
+                <label>Nome de usuário:</label>
+                    <input type="text" class="form-control" placeholder="Nome de usuario" required="required" name="usuario"  value="<?php echo $usuario ?>">
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Senha" required="required" name="senha">
+                <label>Senha:</label>
+                    <input type="password" class="form-control" placeholder="Senha" required="required" name="senha" value="<?php echo $senha ?>">
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Enviar</button>
-                </div>
-                <div class="clearfix">
-                    <p style="text-align: center;">
-                        <?php
-                        session_start();
-                        if (isset($_SESSION['msg'])) {
-                            echo $_SESSION['msg'];
-                            unset($_SESSION['msg']);
-                        }
-                        ?>
-                    </p>
-                </div>        
+                    <button type="submit" class="btn btn-primary btn-block">Alterar</button>
+                </div>       
 
             </form>
 

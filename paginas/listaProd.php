@@ -2,12 +2,12 @@
 include_once ("../banco/conexao.php");
 include_once ("../util/processa_listProd.php");
 session_start();
-if (!empty($_SESSION['id'])) {
+//if (!empty($_SESSION['id'])) {
     
-} else {
+/*} else {
     $_SESSION['msg'] = "Área restrita";
     header("Location: ../paginas/login.php");
-}
+}*/
 ?>
 <html>
     <head>
@@ -64,28 +64,11 @@ if (!empty($_SESSION['id'])) {
                                         <td><?php echo $row_listProd['nome']; ?></td>
                                         <td><?php echo $row_listProd['qtde_estoque']; ?></td>
                                         <td><?php echo 'R$ ' . $row_listProd['preco']; ?></td>
-                                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Excluir</button></td>
-
-                                        <!--MODAL EXCLUIR-->
-                                <div class="modal" id="myModal">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-
-                                            <!-- Modal Header -->
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Tem certeza que deseja excluir?</h4>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            </div>
-
-                                            <!-- Modal footer -->
-                                            <div class="modal-footer">
-                                                <?php echo "<a class='btn btn-danger' role='button' href='../util/process_apaga_prod.php?id=" . $row_listProd['idprod'] . "'>SIM</a>"; ?>
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
+                                        <td>
+                                        <?php echo "<a class='btn btn-danger' role='button' href='../util/process_apaga_prod.php?id=" . $row_listProd['idprod'] . "'>Excluir</a>"; ?>      
+                                      
+                                        <a class="btn btn-primary" href="<?php echo "cadastroProd.php?idprod=".$row_listProd['idprod'] . "&nome=" . $row_listProd['nome'] . "&qtde_estoque=" . $row_listProd['qtde_estoque'] . "&preco=" . $row_listProd['preco'] ?>">Alterar</a>
+                                        </tr>
                                 </tr>
                             <?php } ?>
                             </tbody>
